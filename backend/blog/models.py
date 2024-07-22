@@ -32,16 +32,16 @@ class Category(
     parent = models.ForeignKey(to='self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
 
     class Meta:
-        ordering = 'title'
+        ordering = ('title',)
 
 
 class Tag(
     TitleSlugDescriptionModel
 ):
-    posts = models.ManyToManyField(to=Post, related_name='Tags', null=True, blank=True)
+    posts = models.ManyToManyField(to=Post, related_name='Tags')
 
     class Meta:
-        ordering = ['name']
+        ordering = ('title',)
 
     def __str__(self):
         return self.title
