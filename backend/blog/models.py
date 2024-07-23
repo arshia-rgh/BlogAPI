@@ -1,7 +1,8 @@
 from django.db import models
 from django_extensions.db.models import TimeStampedModel, TitleDescriptionModel, ActivatorModel, \
     TitleSlugDescriptionModel
-from .model_managers import CustomActivatorModelManager
+
+from .model_managers import CommentManager
 
 
 class Post(
@@ -19,16 +20,17 @@ class Comment(
     ActivatorModel,
 ):
     approved = models.BooleanField(default=False)
-    auther = models.OneToOneField(to='auth.User', on_delete=models.CASCADE)
+    auther = models.ForeignKey(to='auth.User', on_delete=models.CASCADE)
     posts = models.ForeignKey(to=Post, related_name='comments', on_delete=models.CASCADE)
     parent = models.ForeignKey(to='self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    objects = CommentManager()
 
 
 class Category(
     TitleDescriptionModel,
     ActivatorModel,
 ):
-    posts = models.ManyToManyField(to=Post, related_name='categories', null=True, blank=True)
+    posts = models.ManyToManyField(to=Post, related_name='categories')
     parent = models.ForeignKey(to='self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
 
     class Meta:
