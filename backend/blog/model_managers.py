@@ -1,7 +1,7 @@
 from django_extensions.db.models import ActivatorQuerySet, ActivatorModelManager
 
 """
-Used django-extension model manager style 
+Used django-extension model manager style
 """
 
 

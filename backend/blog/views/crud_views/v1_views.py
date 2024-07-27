@@ -19,24 +19,25 @@ def serialize_post(post: Post):
     post_dict = model_to_dict(post)
     for field in post._meta.fields:
         if isinstance(getattr(post, field.name), FieldFile):
-            post_dict[field.name] = getattr(post, field.name).url if getattr(post, field.name) else None
+            post_dict[field.name] = (
+                getattr(post, field.name).url if getattr(post, field.name) else None
+            )
     return post_dict
 
 
 class CrudPostView(View):
-
     def get(self, request, *args, **kwargs):
         """
-            Handles GET requests. If a primary key (pk) is provided in the URL, returns the details of the specific post.
-            Otherwise, returns a list of all posts.
+        Handles GET requests. If a primary key (pk) is provided in the URL, returns the details of the specific post.
+        Otherwise, returns a list of all posts.
 
-            Parameters:
-            request (HttpRequest): The HTTP request object.
-            *args: Additional positional arguments.
-            **kwargs: Additional keyword arguments.
+        Parameters:
+        request (HttpRequest): The HTTP request object.
+        *args: Additional positional arguments.
+        **kwargs: Additional keyword arguments.
 
-            Returns:
-            JsonResponse: A JSON response containing th
+        Returns:
+        JsonResponse: A JSON response containing th
         """
         pk = self.kwargs.get("pk")
         if not pk:
@@ -44,7 +45,7 @@ class CrudPostView(View):
             data = {}
             for obj in query:
                 obj_dict = serialize_post(obj)
-                data[f'post_{obj.id}'] = obj_dict
+                data[f"post_{obj.id}"] = obj_dict
             return JsonResponse(data)
 
         obj = Post.objects.get(pk=pk)

@@ -6,10 +6,14 @@ from ..models import Post, Comment
 
 class PostModelTest(APITestCase):
     def setUp(self):
-        self.user1 = User.objects.create(username='test1')
-        self.post1 = Post.objects.create(author=self.user1, title='post1', status=1)
-        self.comment1 = Comment.objects.create(auther=self.user1, posts=self.post1, status=1, approved=True)
-        self.comment2 = Comment.objects.create(auther=self.user1, posts=self.post1, status=0, approved=False)
+        self.user1 = User.objects.create(username="test1")
+        self.post1 = Post.objects.create(author=self.user1, title="post1", status=1)
+        self.comment1 = Comment.objects.create(
+            auther=self.user1, posts=self.post1, status=1, approved=True
+        )
+        self.comment2 = Comment.objects.create(
+            auther=self.user1, posts=self.post1, status=0, approved=False
+        )
 
     def test_custom_model_manager(self):
         approved_comments = Comment.objects.approved()
