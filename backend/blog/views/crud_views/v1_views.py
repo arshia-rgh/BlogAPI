@@ -24,6 +24,7 @@ def serialize_post(post: Post):
 
 
 class CrudPostView(View):
+
     def get(self, request, *args, **kwargs):
         """
             Handles GET requests. If a primary key (pk) is provided in the URL, returns the details of the specific post.
