@@ -64,7 +64,7 @@ This Blog API project is designed as a backend service using Django and Django R
 
 4. Install the requirements:
 
-``` pip install -r requirements.txt``` 
+``` pip install -r requirements.txt```
 
 5. Navigate to backend section of project:
 
@@ -99,8 +99,8 @@ You can access the API through the following endpoint: `http://localhost:8000/ap
 
 1. Navigate to the client section of project:
 
-``` cd client``` 
+``` cd client```
 
 2. Run the main python script:
 
-``` python3 main.py``` 
+``` python3 main.py```
