@@ -21,12 +21,22 @@ def serialize_post(post: Post):
 
 class CrudPostView(View):
     def get(self, request, *args, **kwargs):
-        query = Post.objects.all()
-        data = {}
-        for obj in query:
-            obj_dict = serialize_post(obj)
-            data[f'{obj.id}'] = obj_dict
-        return JsonResponse(data)
+        """
+        If the pk has given returns only one object (DetailView)
+        else returns all objects
+        """
+        pk = self.kwargs.get("pk")
+        if not pk:
+            query = Post.objects.all()
+            data = {}
+            for obj in query:
+                obj_dict = serialize_post(obj)
+                data[f'post_{obj.id}'] = obj_dict
+            return JsonResponse(data)
+        obj = Post.objects.get(pk=pk)
+        obj_dict = serialize_post(obj)
+        return JsonResponse(obj_dict)
+
 
     def post(self, request, *args, **kwargs):
         pass
